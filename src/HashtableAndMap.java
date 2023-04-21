@@ -6,11 +6,12 @@ public class HashtableAndMap {
     public static void main(String[] args) {
 
         /* To test use Hashtable, HashMap, LinkedHashMap or TreeMap */
-    	Hashtable map = new Hashtable(); // no Map because of contains() method
-//    	Map map = new HashMap();
-//    	Map map = new LinkedHashMap();
-//      Map map = new TreeMap(); // used object's compareTo()
-//        Map map = new TreeMap(new Comparator() { // for keys
+
+    	Map<String, String> map = new HashMap();
+//    	Map<String, String> map = new LinkedHashMap();
+//      Map<String, String> map = new TreeMap(); // used object's compareTo()
+//        Hashtable<String, String> map = new Hashtable(); // no Map because of contains() method
+//        Map<String, String> map = new TreeMap(new Comparator() { // for keys
 //            public int compare(Object o1, Object o2) {
 //                return ((String)o1).compareToIgnoreCase((String)o2);
 //            }
@@ -29,11 +30,29 @@ public class HashtableAndMap {
 //      System.out.println(map.contains("Boris"));      // true - valid only for Hashtable
 
         System.out.println(map.get("A"));               // Anna
-        System.out.println(map.remove("A"));            // Anna
+        System.out.println(map.remove("A"));       // Anna
         System.out.println(map.put("C", "Cyrill"));     // Carmen - replaced with Cyrill
         System.out.println(map.toString());             // {C=Cyrill, B=Boris}
 
         System.out.println(map.isEmpty());              // false
+
+        //looping over keys
+        System.out.print("for (String key: map.keySet()): ");
+        for (String key : map.keySet()) {
+            System.out.print("(" + key + ": " + map.get(key) + ") "); // (C: Cyrill) (B: Boris)
+        }
+        System.out.println();
+
+        //loop using entrySet
+        System.out.print("for (Entry<String, String> entry: map.entrySet()): ");
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.print("(" + key + ": " + value + ") "); // (C: Cyrill) (B: Boris)
+        }
+        System.out.println();
+
+        //working with iterators
 
         Set keys = map.keySet();                        // only keys extracted
         for (Iterator it = keys.iterator(); it.hasNext(); /**/) {
@@ -57,13 +76,7 @@ public class HashtableAndMap {
             System.out.print(key + " = " + value + " "); // C = Cyrill B = Boris
         }
         System.out.println();
-        
-        for (Map.Entry<String, String> entry : entries) {
-            String key   = entry.getKey();
-            String value = entry.getValue();
-            System.out.print(key + " = " + value +" "); // C = Cyrill B = Boris
-        }
-        System.out.println();
+
 
         Map map2 = new HashMap();
         map2.put("O", "Otto");
