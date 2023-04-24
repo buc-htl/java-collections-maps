@@ -1,16 +1,15 @@
 import java.util.*;
 
-public class HashtableAndMap {
+public class MapExamples {
 
     @SuppressWarnings("all")
     public static void main(String[] args) {
 
-        /* To test use Hashtable, HashMap, LinkedHashMap or TreeMap */
+        /* To test use HashMap, LinkedHashMap or TreeMap */
 
     	Map<String, String> map = new HashMap();
 //    	Map<String, String> map = new LinkedHashMap();
 //      Map<String, String> map = new TreeMap(); // used object's compareTo()
-//        Hashtable<String, String> map = new Hashtable(); // no Map because of contains() method
 //        Map<String, String> map = new TreeMap(new Comparator() { // for keys
 //            public int compare(Object o1, Object o2) {
 //                return ((String)o1).compareToIgnoreCase((String)o2);
@@ -27,7 +26,6 @@ public class HashtableAndMap {
 
         System.out.println(map.containsKey("B"));       // true
         System.out.println(map.containsValue("Boris")); // true
-//      System.out.println(map.contains("Boris"));      // true - valid only for Hashtable
 
         System.out.println(map.get("A"));               // Anna
         System.out.println(map.remove("A"));       // Anna
@@ -87,7 +85,6 @@ public class HashtableAndMap {
 
         map.putAll(map2);
 
-        // Hashtable:     {Ru=Rupert, R=Roman, RO=Robert, Re=Renate, O=Otto, C=Cyrill, B=Boris}
         // HashMap:       {Ru=Rupert, Re=Renate, B=Boris, R=Roman, C=Cyrill, RO=Robert, O=Otto}
         // LinkedHashMap: {B=Boris, C=Cyrill, R=Roman, Re=Renate, Ru=Rupert, RO=Robert, O=Otto}
         // TreeMap:       {B=Boris, C=Cyrill, O=Otto, R=Roman, RO=Robert, Re=Renate, Ru=Rupert}
