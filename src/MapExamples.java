@@ -7,73 +7,98 @@ public class MapExamples {
 
         /* To test use HashMap, LinkedHashMap or TreeMap */
 
-    	Map<String, String> map = new HashMap();
-//    	Map<String, String> map = new LinkedHashMap();
-//      Map<String, String> map = new TreeMap(); // used object's compareTo()
-//        Map<String, String> map = new TreeMap(new Comparator() { // for keys
-//            public int compare(Object o1, Object o2) {
-//                return ((String)o1).compareToIgnoreCase((String)o2);
-//            }
-//        });
+    	Map<String, Integer> map = new HashMap();
+ //  	Map<String, Integer> map = new LinkedHashMap();
+ //    Map<String, Integer> map = new TreeMap(); // used object's compareTo()
+  /*     Map<String, Integer> map = new TreeMap(new Comparator<String>() { // for keys
+           public int compare(String o1, String o2) {
+               return o2.compareToIgnoreCase(o1);
+           }
+       });
+*/
 
-        map.put("A", "Anna");
-        map.put("B", "Boris");
-        map.put("C", "Carmen");
+        map.put("Boris", 2);
+        map.put("Anna", 1);
+        map.put("Carmen",3);
+
+        System.out.println("map.size() = " + map.size());
 
 
-        System.out.println(map.size());                 // 3
-        System.out.println(map.toString());             // {A=Anna, C=Carmen, B=Boris}
+        //HashMap: {Carmen=3, Boris=2, Anna=1}
+        //LinkedHashMap: {Boris=2, Anna=1, Carmen=3}
+        //TreeMap: {Anna=1, Boris=2, Carmen=3}
+        //TreeMap + Comparator: {Carmen=3, Boris=2, Anna=1}
+        System.out.println("map = " + map.toString());
 
-        System.out.println(map.containsKey("B"));       // true
-        System.out.println(map.containsValue("Boris")); // true
+        System.out.println(map.containsKey("Boris"));       // true
+        System.out.println(map.containsValue(3));           // true
 
-        System.out.println(map.get("A"));               // Anna
-        System.out.println(map.remove("A"));       // Anna
-        System.out.println(map.put("C", "Cyrill"));     // Carmen - replaced with Cyrill
-        System.out.println(map.toString());             // {C=Cyrill, B=Boris}
+        System.out.println(map.get("Anna"));               // 1
+        System.out.println(map.remove("Anna"));       // Anna
+        System.out.println(map.put("Carmen", 5));     //  for key "Carmen": 3 replaced with 5
+        System.out.println(map);
+
+        Set<String> keys = map.keySet();    //get all keys
+        System.out.println("keys = " + keys);
+        Collection<Integer> values = map.values(); //get all values
+        System.out.println("values = " + values);
 
         System.out.println(map.isEmpty());              // false
 
         //looping over keys
         System.out.print("for (String key: map.keySet()): ");
         for (String key : map.keySet()) {
-            System.out.print("(" + key + ": " + map.get(key) + ") "); // (C: Cyrill) (B: Boris)
+            System.out.print("(" + key + ": " + map.get(key) + ") ");
         }
         System.out.println();
 
         //loop using entrySet
         System.out.print("for (Entry<String, String> entry: map.entrySet()): ");
-        for (Map.Entry<String, String> entry : map.entrySet()) {
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
             String key = entry.getKey();
-            String value = entry.getValue();
-            System.out.print("(" + key + ": " + value + ") "); // (C: Cyrill) (B: Boris)
+            Integer value = entry.getValue();
+            System.out.print("(" + key + ": " + value + ") ");
         }
         System.out.println();
 
         //working with iterators
+        Set<String> allKeys = map.keySet();                        // only keys extracted
+        //using a for-loop
+        for (Iterator<String> it = allKeys.iterator(); it.hasNext(); /**/) {
+            System.out.print(it.next() + " ");
+        }
+        System.out.println();
+        //using a while-loop
+        Iterator<String> it = allKeys.iterator();
+        while (it.hasNext()) {
+            String key =  it.next();
+            Integer value = map.get(key);
 
-        Set keys = map.keySet();                        // only keys extracted
-        for (Iterator it = keys.iterator(); it.hasNext(); /**/) {
-            System.out.print(it.next() + " "); 			// C B
+            //you must use an iterator if you want to remove elements while looping over them
+            if(key.equals("Boris")) {
+                it.remove();    //remove the current entry
+            }
+        }
+
+        Collection<Integer> allValues = map.values();           	// only values extracted
+        for (Iterator iterator = allValues.iterator(); iterator.hasNext(); /**/) {
+            System.out.print(iterator.next() + " ");
         }
         System.out.println();
 
-        Collection values = map.values();           	// only values extracted
-        for (Iterator it = values.iterator(); it.hasNext(); /**/) {
-            System.out.print(it.next() + " "); 			// Cyrill Boris
-        }
-        System.out.println();
-        // Or only for printing
-        System.out.println(values); 					// [Cyrill, Boris]
-
-        Set<Map.Entry<String, String>> entries = map.entrySet(); // both keys and values
-        for (Iterator it = entries.iterator(); it.hasNext(); /**/) {
-            Map.Entry entry = (Map.Entry)it.next();
+        Set<Map.Entry<String, Integer>> entries = map.entrySet(); // both keys and values
+        for (Iterator iterator = entries.iterator(); iterator.hasNext(); /**/) {
+            Map.Entry entry = (Map.Entry)iterator.next();
             Object key   = entry.getKey();
             Object value = entry.getValue();
-            System.out.print(key + " = " + value + " "); // C = Cyrill B = Boris
+            System.out.println(key + " = " + value + " ");
+
+            //you must use an iterator if you want to remove elements while looping over them
+            if(key.equals("Anna")) {
+                it.remove();    //remove the current entry
+            }
         }
-        System.out.println();
+        System.out.println("map = " + map);
 
 
         Map map2 = new HashMap();
@@ -83,13 +108,7 @@ public class MapExamples {
         map2.put("Ru", "Rupert");
         map2.put("RO", "Robert");
 
-        map.putAll(map2);
-
-        // HashMap:       {Ru=Rupert, Re=Renate, B=Boris, R=Roman, C=Cyrill, RO=Robert, O=Otto}
-        // LinkedHashMap: {B=Boris, C=Cyrill, R=Roman, Re=Renate, Ru=Rupert, RO=Robert, O=Otto}
-        // TreeMap:       {B=Boris, C=Cyrill, O=Otto, R=Roman, RO=Robert, Re=Renate, Ru=Rupert}
-        // TreeMap(comp)  {B=Boris, C=Cyrill, O=Otto, R=Roman, Re=Renate, RO=Robert, Ru=Rupert}
-        System.out.println(map.toString());
+        map.putAll(map2);   //add all entries of map2 at once
 
         map.clear();
         System.out.println(map.isEmpty());       // true
