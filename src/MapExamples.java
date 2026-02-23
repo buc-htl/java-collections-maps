@@ -17,10 +17,12 @@ public class MapExamples {
        });
 */
 
+        //add key-value pairs to the map
         map.put("Boris", 2);
         map.put("Anna", 1);
         map.put("Carmen",3);
 
+        //get the size of the map
         System.out.println("map.size() = " + map.size());
 
 
@@ -30,14 +32,24 @@ public class MapExamples {
         //TreeMap + Comparator: {Carmen=3, Boris=2, Anna=1}
         System.out.println("map = " + map.toString());
 
-        System.out.println(map.containsKey("Boris"));       // true
-        System.out.println(map.containsValue(3));           // true
-
+        //get value for a key
         System.out.println(map.get("Anna"));               // 1
+       
+        //get a value for a key or an default value if the key is not in the map
+        int bobAlter = map.getOrDefault("Bob", 0);
+       
+        //remove a key
         System.out.println(map.remove("Anna"));       // Anna
+        //update value for a key
         System.out.println(map.put("Carmen", 5));     //  for key "Carmen": 3 replaced with 5
         System.out.println(map);
 
+        //test if the map contains a key or value
+        System.out.println(map.containsKey("Boris"));       // true
+        System.out.println(map.containsValue(3));           // true
+
+
+        //get all keys or values
         Set<String> keys = map.keySet();    //get all keys
         System.out.println("keys = " + keys);
         Collection<Integer> values = map.values(); //get all values
